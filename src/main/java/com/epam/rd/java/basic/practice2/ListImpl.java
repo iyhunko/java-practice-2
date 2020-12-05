@@ -86,6 +86,8 @@ public class ListImpl implements List {
 
     @Override
     public void addLast(Object element) {
+        // TODO: use trait.
+
         Node newNode = new Node(element);
 
         if (head == null) {
@@ -93,6 +95,7 @@ public class ListImpl implements List {
         } else if (tail == null) {
             tail = newNode;
             tail.prev = head;
+            head.next = tail;
         } else {
             tail.next = newNode;
             newNode.prev = tail;

@@ -80,6 +80,7 @@ public class QueueImpl implements Queue {
     @Override
     public void enqueue(Object element) {
         // TODO: use trait becuase this method is same as addLast of ListImpl
+        // is same as StackIMpl.push() and has a few updates with bugfixses comapring
         Node newNode = new Node(element);
 
         if (head == null) {
@@ -87,6 +88,7 @@ public class QueueImpl implements Queue {
         } else if (tail == null) {
             tail = newNode;
             tail.prev = head;
+            head.next = tail;
         } else {
             tail.next = newNode;
             newNode.prev = tail;
@@ -140,7 +142,6 @@ public class QueueImpl implements Queue {
     }
 
     public static void main(String[] args) {
-
         QueueImpl queue = new QueueImpl(
                 new String[]{"first", "second", "third", "forth"}
         );
@@ -157,9 +158,15 @@ public class QueueImpl implements Queue {
         System.out.println("Top method:");
         System.out.println(queue.top());
 
+        System.out.println("Size:");
+        System.out.println(queue.size());
+
         queue.clear();
         System.out.println("After clear:");
         System.out.println(queue);
+
+        System.out.println("Size:");
+        System.out.println(queue.size());
     }
 
 }
