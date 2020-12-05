@@ -1,6 +1,5 @@
 package com.epam.rd.java.basic.practice2;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -95,7 +94,17 @@ public class ArrayImpl implements Array {
 
     @Override
     public String toString() {
-	    return Arrays.toString(items);
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < items.length; i++) {
+            result.append(items[i]);
+
+            if ((i+1) != items.length) {
+                result.append(", ");
+            }
+        }
+
+        return "[" + result.toString() + "]";
     }
 
     public static void main(String[] args) {
@@ -109,6 +118,9 @@ public class ArrayImpl implements Array {
         System.out.println(arrayImpl.get(2));
         System.out.println(arrayImpl.size());
         System.out.println(arrayImpl.indexOf(2));
+
+        System.out.println("toString:");
+        System.out.println(arrayImpl);
     }
 
 }
