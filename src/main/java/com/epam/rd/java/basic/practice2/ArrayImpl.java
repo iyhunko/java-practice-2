@@ -91,7 +91,7 @@ public class ArrayImpl implements Array {
             if (element.equals(items[i]))
                 return i;
 
-        throw new NoSuchElementException();
+        return -1;
     }
 
     @Override
