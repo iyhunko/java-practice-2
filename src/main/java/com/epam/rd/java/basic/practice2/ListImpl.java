@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 public class ListImpl implements List {
 
-    public Node head = null;
-    public Node tail = null;
-    public int count;
+    private Node head = null;
+    private Node tail = null;
+    private int count;
 
     static class Node {
         Object data;

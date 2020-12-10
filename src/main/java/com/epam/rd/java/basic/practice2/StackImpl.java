@@ -4,8 +4,8 @@ import java.util.Iterator;
 
 public class StackImpl implements Stack {
 
-    public Node head = null;
-    public Node tail = null;
+    private Node head = null;
+    private Node tail = null;
 
     public int count;
 
