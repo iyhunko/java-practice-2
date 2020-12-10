@@ -6,6 +6,7 @@ public class StackImpl implements Stack {
 
     public Node head = null;
     public Node tail = null;
+
     public int count;
 
     static class Node {
