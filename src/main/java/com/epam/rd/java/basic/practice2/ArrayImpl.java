@@ -64,7 +64,7 @@ public class ArrayImpl implements Array {
     @Override
     public void set(int index, Object element) {
         if (index > items.length - 1) {
-            Object[] newArray = new Object[index];
+            Object[] newArray = new Object[index+1];
             for (int i = 0; i < items.length; i++) {
                 newArray[i] = items[i];
             }
@@ -72,6 +72,7 @@ public class ArrayImpl implements Array {
 
             items = newArray;
         }
+
         items[index] = element;
         arrayLength++;
     }
