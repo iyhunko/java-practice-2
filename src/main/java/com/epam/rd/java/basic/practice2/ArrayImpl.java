@@ -31,12 +31,12 @@ public class ArrayImpl implements Array {
 
     private class IteratorImpl implements Iterator<Object> {
 
-        private int nextIndex = 0;
+        private int currentIndex = -1;
 
         @Override
         public boolean hasNext() {
             boolean result = true;
-            if (items[nextIndex] == null) {
+            if (items.length <= currentIndex+1 || items[currentIndex+1] == null) {
                 result = false;
             }
 
@@ -47,9 +47,9 @@ public class ArrayImpl implements Array {
         public Object next() {
             if (!hasNext()) throw new NoSuchElementException();
 
-            Object nextItem = items[nextIndex];
+            Object nextItem = items[currentIndex+1];
 
-            nextIndex++;
+            currentIndex++;
 
             return nextItem;
         }

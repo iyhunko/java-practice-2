@@ -1,6 +1,7 @@
 package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ListImpl implements List {
 
@@ -37,20 +38,22 @@ public class ListImpl implements List {
     }
 
     public Iterator<Object> iterator() {
-        return new IteratorImpl(head);
+        return new IteratorImpl();
     }
 
-    private static class IteratorImpl implements Iterator<Object> {
+    private class IteratorImpl implements Iterator<Object> {
 
-        public Node current;
-
-        public IteratorImpl(Node node) {
-            current = node;
-        }
+        public Node current = head;
 
         @Override
         public boolean hasNext() {
-            return current != null && current.next != null;
+            boolean result = true;
+
+            if (current == null || current.next == null) {
+                result = false;
+            }
+
+            return result;
         }
 
         @Override
