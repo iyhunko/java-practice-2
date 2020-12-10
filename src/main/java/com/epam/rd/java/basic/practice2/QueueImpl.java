@@ -109,7 +109,7 @@ public class QueueImpl implements Queue {
             if (count > 0) {
                 count--;
             }
-        } catch (Exception $exception) {
+        } catch (Exception exception) {
             // TODO: Log error message
             return false;
         }
@@ -119,7 +119,13 @@ public class QueueImpl implements Queue {
 
     @Override
     public Object top() {
-        return head.data;
+        Object result = null;
+
+        if (head != null) {
+            result = head.data;
+        }
+
+        return result;
     }
 
     @Override

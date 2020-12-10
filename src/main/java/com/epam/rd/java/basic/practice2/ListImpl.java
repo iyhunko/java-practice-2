@@ -1,7 +1,6 @@
 package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class ListImpl implements List {
 
@@ -155,7 +154,7 @@ public class ListImpl implements List {
             currentNode = currentNode.next;
         } while (currentNode != null);
 
-        throw new NoSuchElementException();
+        return null;
     }
 
     @Override
@@ -178,6 +177,7 @@ public class ListImpl implements List {
                 }
 
                 result = true;
+                count--;
                 break;
             }
 
@@ -229,6 +229,7 @@ public class ListImpl implements List {
         System.out.println(newListImplementation.search("Second item"));
 
         newListImplementation.removeFirst();
+
         System.out.println("After remove first:");
         System.out.println(newListImplementation);
 
@@ -243,5 +244,6 @@ public class ListImpl implements List {
         newListImplementation.remove("Third item");
         System.out.println("After remove:");
         System.out.println(newListImplementation);
+        System.out.println(newListImplementation.size());
     }
 }

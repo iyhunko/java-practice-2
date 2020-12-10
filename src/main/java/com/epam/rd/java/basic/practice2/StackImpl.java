@@ -76,21 +76,31 @@ public class StackImpl implements Stack {
 
     @Override
     public Object pop() {
-        Node elementToBeReturned = tail;
+        Object result = null;
+        if (tail != null) {
+            Node elementToBeReturned = tail;
 
-        tail = elementToBeReturned.prev;
-        tail.next = null;
+            tail = elementToBeReturned.prev;
+            tail.next = null;
 
-        if (count > 0) {
-            count--;
+            if (count > 0) {
+                count--;
+            }
+
+            result = elementToBeReturned.data;
         }
 
-        return elementToBeReturned.data;
+        return result;
     }
 
     @Override
     public Object top() {
-        return tail.data;
+        Object result = null;
+        if (tail != null) {
+            result = tail.data;
+        }
+
+        return result;
     }
 
     @Override
