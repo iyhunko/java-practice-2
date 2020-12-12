@@ -7,7 +7,7 @@ public class StackImpl implements Stack {
     private Node head = null;
     private Node tail = null;
 
-    public int count;
+    private int count;
 
     static class Node {
         Object data;
@@ -37,13 +37,19 @@ public class StackImpl implements Stack {
         return new IteratorImpl();
     }
 
-    private static class IteratorImpl implements Iterator<Object> {
+    private class IteratorImpl implements Iterator<Object> {
 
-        public QueueImpl.Node current;
+        public StackImpl.Node current = head;
 
         @Override
         public boolean hasNext() {
-            return current != null && current.next != null;
+            boolean result = false;
+
+            if (current != null && current.next != null) {
+                result = true;
+            }
+
+            return result;
         }
 
         @Override

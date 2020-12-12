@@ -46,7 +46,13 @@ public class QueueImpl implements Queue {
 
         @Override
         public boolean hasNext() {
-            return current != null && current.next != null;
+            boolean result = false;
+
+            if (current != null && current.next != null) {
+                result = true;
+            }
+
+            return result;
         }
 
         @Override
@@ -107,20 +113,20 @@ public class QueueImpl implements Queue {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        Node currentNode = head;
+        StringBuilder builder = new StringBuilder();
+        Node newNode = head;
 
-        while (currentNode != null) {
-            result.append(currentNode.data.toString());
+        while (newNode != null) {
+            builder.append(newNode.data.toString());
 
-            currentNode = currentNode.next;
+            newNode = newNode.next;
 
-            if (currentNode != null) {
-                result.append(", ");
+            if (newNode != null) {
+                builder.append(", ");
             }
         }
 
-        return "[" + result.toString() + "]";
+        return "[" + builder.toString() + "]";
     }
 
     public static void main(String[] args) {
