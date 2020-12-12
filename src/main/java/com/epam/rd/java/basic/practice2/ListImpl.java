@@ -1,7 +1,6 @@
 package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class ListImpl implements List {
 
@@ -9,20 +8,50 @@ public class ListImpl implements List {
     private Node tail = null;
     private int count;
 
-    static class Node {
-        Object data;
-        Node next;
-        Node prev;
-
-        public Node(Object data) {
-            this.data = data;
-            this.next = null;
-            this.prev = null;
-        }
-    }
-
     public ListImpl() {
         count = 0;
+    }
+
+    public static void main(String[] args) {
+        ListImpl newListImplementation = new ListImpl();
+
+        newListImplementation.addFirst("Third item");
+        newListImplementation.addFirst("Second item");
+        newListImplementation.addFirst("First item");
+
+        newListImplementation.addLast("Last item");
+
+        System.out.println("List:");
+        System.out.println(newListImplementation);
+
+        System.out.println("Size:");
+        System.out.println(newListImplementation.size());
+
+        System.out.println("First:");
+        System.out.println(newListImplementation.getFirst());
+        System.out.println("Last:");
+        System.out.println(newListImplementation.getLast());
+
+        System.out.println("Search second:");
+        System.out.println(newListImplementation.search("Second item"));
+
+        newListImplementation.removeFirst();
+
+        System.out.println("After remove first:");
+        System.out.println(newListImplementation);
+
+        newListImplementation.removeLast();
+        System.out.println("After remove last:");
+        System.out.println(newListImplementation);
+
+        newListImplementation.addLast("Last item");
+        System.out.println("After add last:");
+        System.out.println(newListImplementation);
+
+        newListImplementation.remove("Third item");
+        System.out.println("After remove:");
+        System.out.println(newListImplementation);
+        System.out.println(newListImplementation.size());
     }
 
     @Override
@@ -39,28 +68,6 @@ public class ListImpl implements List {
 
     public Iterator<Object> iterator() {
         return new IteratorImpl();
-    }
-
-    private class IteratorImpl implements Iterator<Object> {
-
-        public Node current = head;
-
-        @Override
-        public boolean hasNext() {
-            boolean result = true;
-
-            if (current == null || current.next == null) {
-                result = false;
-            }
-
-            return result;
-        }
-
-        @Override
-        public Object next() {
-            return current.next;
-        }
-
     }
 
     @Override
@@ -132,12 +139,22 @@ public class ListImpl implements List {
 
     @Override
     public Object getFirst() {
-        return head.data;
+        Object result = null;
+        if (head != null) {
+            result = head.data;
+        }
+
+        return result;
     }
 
     @Override
     public Object getLast() {
-        return tail.data;
+        Object result = null;
+        if (tail != null) {
+            result = tail.data;
+        }
+
+        return result;
     }
 
     @Override
@@ -145,7 +162,7 @@ public class ListImpl implements List {
 
         Node currentNode = head;
 
-        do {
+        while (currentNode != null) {
             if (currentNode.data.equals(element)) {
                 return currentNode.data;
             }
@@ -155,7 +172,7 @@ public class ListImpl implements List {
             }
 
             currentNode = currentNode.next;
-        } while (currentNode != null);
+        }
 
         return null;
     }
@@ -167,7 +184,7 @@ public class ListImpl implements List {
         Node currentNode = head;
 
         do {
-            if (currentNode.data.equals(element)) {
+            if (currentNode != null && currentNode.data.equals(element)) {
                 if (currentNode.equals(head)) {
                     head = head.next;
                     head.prev = null;
@@ -184,6 +201,7 @@ public class ListImpl implements List {
                 break;
             }
 
+            assert currentNode != null;
             currentNode = currentNode.next;
         } while (currentNode != null);
 
@@ -195,7 +213,7 @@ public class ListImpl implements List {
         StringBuilder result = new StringBuilder();
         Node currentNode = head;
 
-        do {
+        while (currentNode != null) {
             result.append(currentNode.data.toString());
 
             currentNode = currentNode.next;
@@ -203,50 +221,42 @@ public class ListImpl implements List {
             if (currentNode != null) {
                 result.append(", ");
             }
-        } while (currentNode != null);
+        }
 
         return "[" + result.toString() + "]";
     }
 
-    public static void main(String[] args) {
-        ListImpl newListImplementation = new ListImpl();
+    static class Node {
+        Object data;
+        Node next;
+        Node prev;
 
-        newListImplementation.addFirst("Third item");
-        newListImplementation.addFirst("Second item");
-        newListImplementation.addFirst("First item");
+        public Node(Object data) {
+            this.data = data;
+            this.next = null;
+            this.prev = null;
+        }
+    }
 
-        newListImplementation.addLast("Last item");
+    private class IteratorImpl implements Iterator<Object> {
 
-        System.out.println("List:");
-        System.out.println(newListImplementation);
+        public Node current = head;
 
-        System.out.println("Size:");
-        System.out.println(newListImplementation.size());
+        @Override
+        public boolean hasNext() {
+            boolean result = false;
 
-        System.out.println("First:");
-        System.out.println(newListImplementation.getFirst());
-        System.out.println("Last:");
-        System.out.println(newListImplementation.getLast());
+            if (current != null && current.next != null) {
+                result = true;
+            }
 
-        System.out.println("Search second:");
-        System.out.println(newListImplementation.search("Second item"));
+            return result;
+        }
 
-        newListImplementation.removeFirst();
+        @Override
+        public Object next() {
+            return current.next;
+        }
 
-        System.out.println("After remove first:");
-        System.out.println(newListImplementation);
-
-        newListImplementation.removeLast();
-        System.out.println("After remove last:");
-        System.out.println(newListImplementation);
-
-        newListImplementation.addLast("Last item");
-        System.out.println("After add last:");
-        System.out.println(newListImplementation);
-
-        newListImplementation.remove("Third item");
-        System.out.println("After remove:");
-        System.out.println(newListImplementation);
-        System.out.println(newListImplementation.size());
     }
 }
