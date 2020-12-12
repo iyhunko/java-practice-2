@@ -71,10 +71,13 @@ public class ArrayImpl implements Array {
             newArray[index] = element;
 
             items = newArray;
+            arrayLength++;
+        } else {
+            if (items[index] == null) {
+                arrayLength++;
+            }
+            items[index] = element;
         }
-
-        items[index] = element;
-        arrayLength++;
     }
 
     @Override
@@ -123,7 +126,7 @@ public class ArrayImpl implements Array {
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < items.length; i++) {
-            result.append(items[i]);
+            result.append(items[i] == null ? "null" : items[i]);
 
             if ((i + 1) != items.length) {
                 result.append(", ");
