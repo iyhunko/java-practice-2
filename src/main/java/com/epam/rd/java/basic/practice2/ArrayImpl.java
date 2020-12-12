@@ -71,10 +71,10 @@ public class ArrayImpl implements Array {
             newArray[index] = element;
 
             items = newArray;
+            arrayLength++;
+        } else {
+            items[index] = element;
         }
-
-        items[index] = element;
-        arrayLength++;
     }
 
     @Override
