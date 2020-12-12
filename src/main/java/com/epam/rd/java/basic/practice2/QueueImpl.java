@@ -20,27 +20,6 @@ public class QueueImpl implements Queue {
         }
     }
 
-    public QueueImpl(Object[] items) {
-        for (int i = 0; i < items.length; i++) {
-            if (i == 0) {
-                head = new Node(items[i]);
-            } else if (i == 1) {
-                tail = new Node(items[i]);
-                tail.prev = head;
-                head.next = tail;
-            } else {
-                // TODO: use trait .addToEnd(). same as in ListImpl
-                Node newNode = new Node(items[i]);
-                tail.next = newNode;
-                newNode.prev = tail;
-
-                tail = newNode;
-            }
-
-            count++;
-        }
-    }
-
     @Override
     public void clear() {
         head = null;
@@ -59,7 +38,7 @@ public class QueueImpl implements Queue {
 
     private static class IteratorImpl implements Iterator<Object> {
 
-        public Node current;
+        private final Node current;
 
         public IteratorImpl(Node node) {
             current = node;
@@ -79,8 +58,6 @@ public class QueueImpl implements Queue {
 
     @Override
     public void enqueue(Object element) {
-        // TODO: use trait becuase this method is same as addLast of ListImpl
-        // is same as StackIMpl.push() and has a few updates with bugfixses comapring
         Node newNode = new Node(element);
 
         if (head == null) {
@@ -101,17 +78,17 @@ public class QueueImpl implements Queue {
 
     @Override
     public Object dequeue() {
-        try {
-            // TODO: use trait to reuse ListImpl.removeFirst()
+        if (head != null) {
             head = head.next;
             head.prev = null;
+
+            if (head.equals(tail)) {
+                tail = null;
+            }
 
             if (count > 0) {
                 count--;
             }
-        } catch (Exception exception) {
-            // TODO: Log error message
-            return false;
         }
 
         return true;
@@ -130,7 +107,6 @@ public class QueueImpl implements Queue {
 
     @Override
     public String toString() {
-        // TODO: use trait. Method is same as in ListImpl
         StringBuilder result = new StringBuilder();
         Node currentNode = head;
 
@@ -148,17 +124,15 @@ public class QueueImpl implements Queue {
     }
 
     public static void main(String[] args) {
-        QueueImpl queue = new QueueImpl(
-                new String[]{"first", "second", "third", "forth"}
-        );
+        QueueImpl queue = new QueueImpl();
         System.out.println(queue);
 
         queue.enqueue("last");
         System.out.println("After enqueue:");
-        System.out.println(queue);
+        System.out.println(queue.size());
 
-        queue.dequeue();
-        System.out.println("After dequeue:");
+        queue.enqueue("new elem");
+        System.out.println("After enqueue:");
         System.out.println(queue);
 
         System.out.println("Top method:");

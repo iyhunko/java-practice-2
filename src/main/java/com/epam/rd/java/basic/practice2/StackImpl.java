@@ -23,7 +23,6 @@ public class StackImpl implements Stack {
 
     @Override
     public void clear() {
-        // TODO: use trait. Same as in queue and ListImpl
         head = null;
         tail = null;
         count = 0;
@@ -56,7 +55,6 @@ public class StackImpl implements Stack {
 
     @Override
     public void push(Object element) {
-        // TODO: use trait. This method is same as ListImpl.addLast()
         Node newNode = new Node(element);
 
         if (head == null) {
@@ -106,7 +104,6 @@ public class StackImpl implements Stack {
 
     @Override
     public String toString() {
-        // TODO: use trait. Method is same as in ListImpl
         StringBuilder result = new StringBuilder();
         Node currentNode = head;
 

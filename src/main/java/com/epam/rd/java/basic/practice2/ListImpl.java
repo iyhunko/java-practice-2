@@ -95,8 +95,6 @@ public class ListImpl implements List {
 
     @Override
     public void addLast(Object element) {
-        // TODO: use trait.
-
         Node newNode = new Node(element);
 
         if (head == null) {
@@ -240,7 +238,7 @@ public class ListImpl implements List {
 
     private class IteratorImpl implements Iterator<Object> {
 
-        public Node current = head;
+        private final Node current = head;
 
         @Override
         public boolean hasNext() {
